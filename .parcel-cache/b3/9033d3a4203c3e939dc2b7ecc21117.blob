@@ -1,0 +1,30 @@
+'use strict';
+import   "f0e154539ce3a8789e104749c719d604:../internals/export";
+import   "f0e154539ce3a8789e104749c719d604:../internals/a-function";
+import   "f0e154539ce3a8789e104749c719d604:../internals/to-object";
+import   "f0e154539ce3a8789e104749c719d604:../internals/fails";
+import   "f0e154539ce3a8789e104749c719d604:../internals/array-method-is-strict";
+var $f0e154539ce3a8789e104749c719d604$var$test = [];
+var $f0e154539ce3a8789e104749c719d604$var$nativeSort = $f0e154539ce3a8789e104749c719d604$var$test.sort;
+// IE8-
+var $f0e154539ce3a8789e104749c719d604$var$FAILS_ON_UNDEFINED = $f0e154539ce3a8789e104749c719d604$import$9936d02511e757dc(function() {
+    $f0e154539ce3a8789e104749c719d604$var$test.sort(undefined);
+});
+// V8 bug
+var $f0e154539ce3a8789e104749c719d604$var$FAILS_ON_NULL = $f0e154539ce3a8789e104749c719d604$import$9936d02511e757dc(function() {
+    $f0e154539ce3a8789e104749c719d604$var$test.sort(null);
+});
+// Old WebKit
+var $f0e154539ce3a8789e104749c719d604$var$STRICT_METHOD = $f0e154539ce3a8789e104749c719d604$import$f597927de08feb79('sort');
+var $f0e154539ce3a8789e104749c719d604$var$FORCED = $f0e154539ce3a8789e104749c719d604$var$FAILS_ON_UNDEFINED || !$f0e154539ce3a8789e104749c719d604$var$FAILS_ON_NULL || !$f0e154539ce3a8789e104749c719d604$var$STRICT_METHOD;
+// `Array.prototype.sort` method
+// https://tc39.es/ecma262/#sec-array.prototype.sort
+$f0e154539ce3a8789e104749c719d604$import$1bb3f1a3ac631152({
+    target: 'Array',
+    proto: true,
+    forced: $f0e154539ce3a8789e104749c719d604$var$FORCED
+}, {
+    sort: function sort(comparefn) {
+        return comparefn === undefined ? $f0e154539ce3a8789e104749c719d604$var$nativeSort.call($f0e154539ce3a8789e104749c719d604$import$565dce0892f29b05(this)) : $f0e154539ce3a8789e104749c719d604$var$nativeSort.call($f0e154539ce3a8789e104749c719d604$import$565dce0892f29b05(this), $f0e154539ce3a8789e104749c719d604$import$feed022c18f6196b(comparefn));
+    }
+});

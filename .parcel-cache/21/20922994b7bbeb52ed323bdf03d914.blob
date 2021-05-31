@@ -1,0 +1,44 @@
+import   "9122a82347665266e8035173315c1678:./View.js";
+import   "9122a82347665266e8035173315c1678:url:../../img/icons.svg";
+import   "9122a82347665266e8035173315c1678:fractional";
+class $9122a82347665266e8035173315c1678$var$RecipeView extends $9122a82347665266e8035173315c1678$import$bc564d5e62d693bc$9099ad97b570f7c {
+    _parentElement = document.querySelector('.recipe');
+    _errorMessage = 'No recipes found for your query. Please try again!';
+    _message = '';
+    addHandlerRender(handler) {
+        [
+            'hashchange',
+            'load'
+        ].forEach((action)=>{
+            window.addEventListener(action, handler);
+        });
+    // window.addEventListener('hashchange',controlRecipe)
+    // window.addEventListener('load',controlRecipe)
+    }
+    addHandlerUpdateRenderServings(handler) {
+        this._parentElement.addEventListener('click', (e)=>{
+            const btn = e.target.closest('.btn--update-servings');
+            if (!btn) return;
+            const { updateTo: updateTo  } = btn.dataset;
+            console.log(updateTo);
+            if (+updateTo > 0) handler(+updateTo);
+        });
+    }
+    addHandlerAddBookmark(handler) {
+        // Use delegation by reduce loop many time if 
+        this._parentElement.addEventListener('click', (e)=>{
+            const btn = e.target.closest('.btn--bookmark');
+            console.log(btn);
+            if (!btn) return;
+            handler();
+        });
+    }
+    _generateMarkup() {
+        console.log(this._data);
+        return `\n            <figure class="recipe__fig">\n            <img src="${this._data.image}" alt="Tomato" class="recipe__img" />\n            <h1 class="recipe__title">\n                <span>${this._data.title}</span>\n            </h1>\n            </figure>\n\n            <div class="recipe__details">\n            <div class="recipe__info">\n                <svg class="recipe__info-icon">\n                <use href="${$9122a82347665266e8035173315c1678$import$5e363e6f755f0684$9099ad97b570f7c}#icon-clock"></use>\n                </svg>\n                <span class="recipe__info-data recipe__info-data--minutes">${this._data.cookingTime}</span>\n                <span class="recipe__info-text">minutes</span>\n            </div>\n            <div class="recipe__info">\n                <svg class="recipe__info-icon">\n                <use href="${$9122a82347665266e8035173315c1678$import$5e363e6f755f0684$9099ad97b570f7c}#icon-users"></use>\n                </svg>\n                <span class="recipe__info-data recipe__info-data--people">${this._data.servings}</span>\n                <span class="recipe__info-text">servings</span>\n\n                <div class="recipe__info-buttons">\n                <button class="btn--tiny btn--update-servings" data-update-to="${this._data.servings - 1}">\n                    <svg>\n                    <use href="${$9122a82347665266e8035173315c1678$import$5e363e6f755f0684$9099ad97b570f7c}#icon-minus-circle"></use>\n                    </svg>\n                </button>\n                <button class="btn--tiny btn--update-servings" data-update-to="${this._data.servings + 1}">\n                    <svg>\n                    <use href="${$9122a82347665266e8035173315c1678$import$5e363e6f755f0684$9099ad97b570f7c}#icon-plus-circle"></use>\n                    </svg>\n                </button>\n                </div>\n            </div>\n\n            <div class="recipe__user-generated ${this._data.key ? '' : 'hidden'}">\n                <svg>\n                    <use href="${$9122a82347665266e8035173315c1678$import$5e363e6f755f0684$9099ad97b570f7c}#icon-user"></use>\n                </svg>\n            </div>\n            <button class="btn--round btn--bookmark">\n                <svg class="">\n                <use href="${$9122a82347665266e8035173315c1678$import$5e363e6f755f0684$9099ad97b570f7c}#icon-bookmark${this._data.bookmark ? '-fill' : ''}"></use>\n                </svg>\n            </button>\n            </div>\n\n            <div class="recipe__ingredients">\n            <h2 class="heading--2">Recipe ingredients</h2>\n            <ul class="recipe__ingredient-list">\n            ${this._data.ingredients.map(this._generateMarkupIngredient).join('')}\n            \n            </ul>\n            </div>\n\n            <div class="recipe__directions">\n            <h2 class="heading--2">How to cook it</h2>\n            <p class="recipe__directions-text">\n                This recipe was carefully designed and tested by\n                <span class="recipe__publisher">${this._data.publisher}</span>. Please check out\n                directions at their website.\n            </p>\n            <a\n                class="btn--small recipe__btn"\n                href="${this._data.sourceUrl}"\n                target="_blank"\n            >\n                <span>Directions</span>\n                <svg class="search__icon">\n                <use href="${$9122a82347665266e8035173315c1678$import$5e363e6f755f0684$9099ad97b570f7c}#icon-arrow-right"></use>\n                </svg>\n            </a>\n            </div>\n        `;
+    }
+    _generateMarkupIngredient(ing) {
+        return `\n            <li class="recipe__ingredient">\n                <svg class="recipe__icon">\n                <use href="${$9122a82347665266e8035173315c1678$import$5e363e6f755f0684$9099ad97b570f7c}#icon-check"></use>\n                </svg>\n                <div class="recipe__quantity">${ing.quantity ? new $9122a82347665266e8035173315c1678$import$afe0b0fc10cb7f39$2ced16407d18a1c7(ing.quantity).toString() : ''}</div>\n                <div class="recipe__description">\n                <span class="recipe__unit">${ing.unit ? ing.unit : ''}</span>\n                ${ing.description}\n                </div>\n            </li>\n            `;
+    }
+}
+var $9122a82347665266e8035173315c1678$export$9099ad97b570f7c = new $9122a82347665266e8035173315c1678$var$RecipeView();

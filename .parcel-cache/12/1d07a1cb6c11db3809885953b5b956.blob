@@ -1,0 +1,10 @@
+'use strict';
+import   "889ffa3979dd9c49c0fdeb28f8aa1b8e:../internals/array-buffer-view-core";
+var $889ffa3979dd9c49c0fdeb28f8aa1b8e$var$aTypedArray = $889ffa3979dd9c49c0fdeb28f8aa1b8e$import$646a64c4a95eead$3c5c2dd1e7d0241;
+var $889ffa3979dd9c49c0fdeb28f8aa1b8e$var$exportTypedArrayMethod = $889ffa3979dd9c49c0fdeb28f8aa1b8e$import$646a64c4a95eead$499fcf5cda66e13c;
+var $889ffa3979dd9c49c0fdeb28f8aa1b8e$var$$sort = [].sort;
+// `%TypedArray%.prototype.sort` method
+// https://tc39.es/ecma262/#sec-%typedarray%.prototype.sort
+$889ffa3979dd9c49c0fdeb28f8aa1b8e$var$exportTypedArrayMethod('sort', function sort(comparefn) {
+    return $889ffa3979dd9c49c0fdeb28f8aa1b8e$var$$sort.call($889ffa3979dd9c49c0fdeb28f8aa1b8e$var$aTypedArray(this), comparefn);
+});

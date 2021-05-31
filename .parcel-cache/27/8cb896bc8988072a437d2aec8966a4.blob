@@ -1,0 +1,27 @@
+import   "9aa0256e61c4196266222711085618c6:url:../../img/icons.svg";
+import   "9aa0256e61c4196266222711085618c6:./View.js";
+class $9aa0256e61c4196266222711085618c6$var$PaginationView extends $9aa0256e61c4196266222711085618c6$import$bc564d5e62d693bc$9099ad97b570f7c {
+    _parentElement = document.querySelector('.pagination');
+    addHandlerClick(handler) {
+        this._parentElement.addEventListener('click', (e)=>{
+            const btn = e.target.closest('.btn--inline');
+            if (!btn) return;
+            const goToPage = +btn.dataset.goto;
+            handler(goToPage);
+        });
+    }
+    _generateMarkup() {
+        const curPage = this._data.page;
+        const numPages = Math.ceil(this._data.result.length / this._data.resultPerPage);
+        console.log(numPages);
+        // Page 1, and there are other pages
+        if (curPage === 1 && numPages > 1) return `\n            <button data-goto="${curPage + 1}" class="btn--inline pagination__btn--next">\n                <span>${curPage + 1}</span>\n                <svg class="search__icon">\n                    <use href="${$9aa0256e61c4196266222711085618c6$import$5e363e6f755f0684$9099ad97b570f7c}#icon-arrow-right"></use>\n                </svg>\n            </button>\n            `;
+        // Last page
+        if (curPage === numPages && numPages > 1) return `\n            <button data-goto="${curPage - 1}" class="btn--inline pagination__btn--prev">\n                <svg class="search__icon">\n                    <use href="${$9aa0256e61c4196266222711085618c6$import$5e363e6f755f0684$9099ad97b570f7c}#icon-arrow-left"></use>\n                </svg>\n                <span>Page ${curPage - 1}</span>\n            </button>\n            `;
+        // Other page
+        if (curPage < numPages) return `\n            <button data-goto="${curPage - 1}" class="btn--inline pagination__btn--prev">\n                <svg class="search__icon">\n                    <use href="${$9aa0256e61c4196266222711085618c6$import$5e363e6f755f0684$9099ad97b570f7c}#icon-arrow-left"></use>\n                </svg>\n                <span>Page ${curPage - 1}</span>\n            </button>\n            <button data-goto="${curPage + 1}" class="btn--inline pagination__btn--next">\n                <span>${curPage + 1}</span>\n                    <svg class="search__icon">\n                <use href="${$9aa0256e61c4196266222711085618c6$import$5e363e6f755f0684$9099ad97b570f7c}#icon-arrow-right"></use>\n                </svg>\n            </button>\n            `;
+        // Page 1, and there is no other pages
+        return ``;
+    }
+}
+var $9aa0256e61c4196266222711085618c6$export$9099ad97b570f7c = new $9aa0256e61c4196266222711085618c6$var$PaginationView();

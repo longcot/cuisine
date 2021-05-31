@@ -1,0 +1,10 @@
+import   "34aa701384d2a9b522bbab92e24f2590:url:../../img/icons.svg";
+import   "34aa701384d2a9b522bbab92e24f2590:./View.js";
+class $34aa701384d2a9b522bbab92e24f2590$var$PreviewView extends $34aa701384d2a9b522bbab92e24f2590$import$bc564d5e62d693bc$9099ad97b570f7c {
+    _parentElement = '';
+    _generateMarkup() {
+        console.log(this._data);
+        return `\n          <li class="preview">\n            <a class="preview__link" href="#${this._data.id}">\n              <figure class="preview__fig">\n                <img src="${this._data.image}" alt="Test" />\n              </figure>\n              <div class="preview__data">\n                <h4 class="preview__title">${this._data.title}</h4>\n                <p class="preview__publisher">${this._data.publisher}</p>\n                <div class="preview__user-generated ${this._data.key ? '' : 'hidden'}">\n                  <svg>\n                  <use href="${$34aa701384d2a9b522bbab92e24f2590$import$5e363e6f755f0684$9099ad97b570f7c}#icon-user"></use>\n                  </svg>\n                </div>\n              </div>\n            </a>\n          </li>\n        `;
+    }
+}
+var $34aa701384d2a9b522bbab92e24f2590$export$9099ad97b570f7c = new $34aa701384d2a9b522bbab92e24f2590$var$PreviewView();

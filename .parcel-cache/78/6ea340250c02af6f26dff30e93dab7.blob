@@ -1,0 +1,76 @@
+import   "5c873903f72e71492f1d7cc8cefdbad7:../internals/descriptors";
+import   "5c873903f72e71492f1d7cc8cefdbad7:../internals/global";
+import   "5c873903f72e71492f1d7cc8cefdbad7:../internals/is-forced";
+import   "5c873903f72e71492f1d7cc8cefdbad7:../internals/inherit-if-required";
+import   "5c873903f72e71492f1d7cc8cefdbad7:../internals/object-define-property";
+var $5c873903f72e71492f1d7cc8cefdbad7$require$defineProperty = $5c873903f72e71492f1d7cc8cefdbad7$import$4276e2046cfaee3b$ffb27d6bd8d1eb33;
+import   "5c873903f72e71492f1d7cc8cefdbad7:../internals/object-get-own-property-names";
+var $5c873903f72e71492f1d7cc8cefdbad7$require$getOwnPropertyNames = $5c873903f72e71492f1d7cc8cefdbad7$import$533e989815e07ef4$ffb27d6bd8d1eb33;
+import   "5c873903f72e71492f1d7cc8cefdbad7:../internals/is-regexp";
+import   "5c873903f72e71492f1d7cc8cefdbad7:../internals/regexp-flags";
+import   "5c873903f72e71492f1d7cc8cefdbad7:../internals/regexp-sticky-helpers";
+import   "5c873903f72e71492f1d7cc8cefdbad7:../internals/redefine";
+import   "5c873903f72e71492f1d7cc8cefdbad7:../internals/fails";
+import   "5c873903f72e71492f1d7cc8cefdbad7:../internals/internal-state";
+var $5c873903f72e71492f1d7cc8cefdbad7$require$enforceInternalState = $5c873903f72e71492f1d7cc8cefdbad7$import$2c03d954288482bc$f2c0d7c4fb49feef;
+import   "5c873903f72e71492f1d7cc8cefdbad7:../internals/set-species";
+import   "5c873903f72e71492f1d7cc8cefdbad7:../internals/well-known-symbol";
+var $5c873903f72e71492f1d7cc8cefdbad7$var$MATCH = $5c873903f72e71492f1d7cc8cefdbad7$import$88242bc6a9673a44('match');
+var $5c873903f72e71492f1d7cc8cefdbad7$var$NativeRegExp = $5c873903f72e71492f1d7cc8cefdbad7$import$da678c04728da253.RegExp;
+var $5c873903f72e71492f1d7cc8cefdbad7$var$RegExpPrototype = $5c873903f72e71492f1d7cc8cefdbad7$var$NativeRegExp.prototype;
+var $5c873903f72e71492f1d7cc8cefdbad7$var$re1 = /a/g;
+var $5c873903f72e71492f1d7cc8cefdbad7$var$re2 = /a/g;
+// "new" should create a new object, old webkit bug
+var $5c873903f72e71492f1d7cc8cefdbad7$var$CORRECT_NEW = new $5c873903f72e71492f1d7cc8cefdbad7$var$NativeRegExp($5c873903f72e71492f1d7cc8cefdbad7$var$re1) !== $5c873903f72e71492f1d7cc8cefdbad7$var$re1;
+var $5c873903f72e71492f1d7cc8cefdbad7$var$UNSUPPORTED_Y = $5c873903f72e71492f1d7cc8cefdbad7$import$e9ad70eb59d84ab$f1f96ea44d660c47;
+var $5c873903f72e71492f1d7cc8cefdbad7$var$FORCED = $5c873903f72e71492f1d7cc8cefdbad7$import$9e95520c426f46b4 && $5c873903f72e71492f1d7cc8cefdbad7$import$6d4a6b2681f6fa01('RegExp', !$5c873903f72e71492f1d7cc8cefdbad7$var$CORRECT_NEW || $5c873903f72e71492f1d7cc8cefdbad7$var$UNSUPPORTED_Y || $5c873903f72e71492f1d7cc8cefdbad7$import$9936d02511e757dc(function() {
+    $5c873903f72e71492f1d7cc8cefdbad7$var$re2[$5c873903f72e71492f1d7cc8cefdbad7$var$MATCH] = false;
+    // RegExp constructor can alter flags and IsRegExp works correct with @@match
+    return $5c873903f72e71492f1d7cc8cefdbad7$var$NativeRegExp($5c873903f72e71492f1d7cc8cefdbad7$var$re1) != $5c873903f72e71492f1d7cc8cefdbad7$var$re1 || $5c873903f72e71492f1d7cc8cefdbad7$var$NativeRegExp($5c873903f72e71492f1d7cc8cefdbad7$var$re2) == $5c873903f72e71492f1d7cc8cefdbad7$var$re2 || $5c873903f72e71492f1d7cc8cefdbad7$var$NativeRegExp($5c873903f72e71492f1d7cc8cefdbad7$var$re1, 'i') != '/a/i';
+}));
+// `RegExp` constructor
+// https://tc39.es/ecma262/#sec-regexp-constructor
+if ($5c873903f72e71492f1d7cc8cefdbad7$var$FORCED) {
+    var $5c873903f72e71492f1d7cc8cefdbad7$var$RegExpWrapper = function RegExp1(pattern, flags) {
+        var thisIsRegExp = this instanceof $5c873903f72e71492f1d7cc8cefdbad7$var$RegExpWrapper;
+        var patternIsRegExp = $5c873903f72e71492f1d7cc8cefdbad7$import$662e09ba9e21e14(pattern);
+        var flagsAreUndefined = flags === undefined;
+        var sticky;
+        if (!thisIsRegExp && patternIsRegExp && pattern.constructor === $5c873903f72e71492f1d7cc8cefdbad7$var$RegExpWrapper && flagsAreUndefined) return pattern;
+        if ($5c873903f72e71492f1d7cc8cefdbad7$var$CORRECT_NEW) {
+            if (patternIsRegExp && !flagsAreUndefined) pattern = pattern.source;
+        } else if (pattern instanceof $5c873903f72e71492f1d7cc8cefdbad7$var$RegExpWrapper) {
+            if (flagsAreUndefined) flags = $5c873903f72e71492f1d7cc8cefdbad7$import$55a1ee6edebd1d69$a4b4c796a132eb0a(pattern);
+            pattern = pattern.source;
+        }
+        if ($5c873903f72e71492f1d7cc8cefdbad7$var$UNSUPPORTED_Y) {
+            sticky = !!flags && flags.indexOf('y') > -1;
+            if (sticky) flags = flags.replace(/y/g, '');
+        }
+        var result = $5c873903f72e71492f1d7cc8cefdbad7$import$4573551afb25194($5c873903f72e71492f1d7cc8cefdbad7$var$CORRECT_NEW ? new $5c873903f72e71492f1d7cc8cefdbad7$var$NativeRegExp(pattern, flags) : $5c873903f72e71492f1d7cc8cefdbad7$var$NativeRegExp(pattern, flags), thisIsRegExp ? this : $5c873903f72e71492f1d7cc8cefdbad7$var$RegExpPrototype, $5c873903f72e71492f1d7cc8cefdbad7$var$RegExpWrapper);
+        if ($5c873903f72e71492f1d7cc8cefdbad7$var$UNSUPPORTED_Y && sticky) {
+            var state = $5c873903f72e71492f1d7cc8cefdbad7$require$enforceInternalState(result);
+            state.sticky = true;
+        }
+        return result;
+    };
+    var $5c873903f72e71492f1d7cc8cefdbad7$var$proxy = function(key) {
+        key in $5c873903f72e71492f1d7cc8cefdbad7$var$RegExpWrapper || $5c873903f72e71492f1d7cc8cefdbad7$require$defineProperty($5c873903f72e71492f1d7cc8cefdbad7$var$RegExpWrapper, key, {
+            configurable: true,
+            get: function() {
+                return $5c873903f72e71492f1d7cc8cefdbad7$var$NativeRegExp[key];
+            },
+            set: function(it) {
+                $5c873903f72e71492f1d7cc8cefdbad7$var$NativeRegExp[key] = it;
+            }
+        });
+    };
+    var $5c873903f72e71492f1d7cc8cefdbad7$var$keys = $5c873903f72e71492f1d7cc8cefdbad7$require$getOwnPropertyNames($5c873903f72e71492f1d7cc8cefdbad7$var$NativeRegExp);
+    var $5c873903f72e71492f1d7cc8cefdbad7$var$index = 0;
+    while($5c873903f72e71492f1d7cc8cefdbad7$var$keys.length > $5c873903f72e71492f1d7cc8cefdbad7$var$index)$5c873903f72e71492f1d7cc8cefdbad7$var$proxy($5c873903f72e71492f1d7cc8cefdbad7$var$keys[$5c873903f72e71492f1d7cc8cefdbad7$var$index++]);
+    $5c873903f72e71492f1d7cc8cefdbad7$var$RegExpPrototype.constructor = $5c873903f72e71492f1d7cc8cefdbad7$var$RegExpWrapper;
+    $5c873903f72e71492f1d7cc8cefdbad7$var$RegExpWrapper.prototype = $5c873903f72e71492f1d7cc8cefdbad7$var$RegExpPrototype;
+    $5c873903f72e71492f1d7cc8cefdbad7$import$715a1a2c44d923e3($5c873903f72e71492f1d7cc8cefdbad7$import$da678c04728da253, 'RegExp', $5c873903f72e71492f1d7cc8cefdbad7$var$RegExpWrapper);
+}
+// https://tc39.es/ecma262/#sec-get-regexp-@@species
+$5c873903f72e71492f1d7cc8cefdbad7$import$4ab311111214a6d('RegExp');
