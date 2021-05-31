@@ -9,7 +9,7 @@ import bookmarksView from './view/bookmarksView.js'
 import addOwnRecipeView from './view/addOwnRecipe'
 
 import 'core-js/stable'
-import 'regenerator-runtime/runtime'
+// import 'regenerator-runtime/runtime'
 
 // const recipeContainer = document.querySelector('.recipe');
 
